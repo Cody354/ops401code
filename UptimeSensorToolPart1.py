@@ -26,4 +26,4 @@ def uptime_sensor(destination_ip):
 if __name__ == "__main__":
   # Replace with the actual IP address of the host you want to monitor
   destination_ip = "192.168.1.10"
-  uptime_sensor(destination_ip)
+  uptime_sensor(destination_ip) 
