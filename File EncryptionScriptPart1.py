@@ -23,7 +23,7 @@ def encrypt_file(file_path):
         # Write the encrypted text back to the file
         f.write(encrypted_text)
 
-# Declare a function to decrypt a file
+# Declare a function to decrypt a file 
 def decrypt_file(file_path):
     # Open the fil
     with open(file_path, 'rb') as f:
