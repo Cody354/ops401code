@@ -1,3 +1,17 @@
+!#bin/bash/env python3
+
+# Script Name:                 FileEncryptionScriptPart2
+# Author:                       Cody Blahnik
+# Date of latest revision:      3/7/24
+# Purpose:                      encrpyts fiels
+
+
+# Write a script that:
+# Creates four directories: dir1, dir2, dir3, dir4
+
+
+
+
 # Import necessary modules
 from cryptography.fernet import Fernet  # Import the Fernet class from the cryptography.fernet module
 import os  # Import the os module
