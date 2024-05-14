@@ -22,7 +22,7 @@ for port in ports.split(","):
 
     #Checking inputs from users
     if response:
-        #sending a ping to the ip on
+        #sending a ping to the ip on flag 12
         if response.haslayer(TCP) and response[TCP].flags == 0x12:
             print(f"Port {port}: Open")
             #If flag 0x12 received, send a RST packet to graciously close the open connection. Notify the user the port is open.
