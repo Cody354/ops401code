@@ -8,7 +8,7 @@
 
 #Utilize the scapy library
 import sys
-from scapy.all import srp, sr1, IP, ICMP
+from scapy.all import sr1, IP, ICMP, TCP
 #Define host IP
 ip = input("What IP would you like to use?")
 #Define port range or specific set of ports to scan
