@@ -19,7 +19,7 @@ def offensive():
     delay = float(input("Enter the delay between words (in seconds): "))
     
     try:
-        with open(file_path, 'r') as file:
+        with open(file_path,encoding = "ISO-8859-1") as file:
             for word in file:
                 word = word.strip()
                 print(word)
@@ -32,7 +32,7 @@ def defensive():
     file_path = input("Enter the word list file path: ")
 
     try:
-        with open(file_path, 'r') as file:
+        with open(file_path, encoding = "ISO-8859-1") as file:
             word_list = [word.strip() for word in file]
             
         if user_string in word_list:
