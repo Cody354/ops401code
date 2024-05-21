@@ -32,9 +32,16 @@ def defensive():
     file_path = input("Enter the word list file path: ")
 
     try:
+<<<<<<< HEAD
         with open(file_path, encoding = "ISO-8859-1") as file:
             word_list = [word.strip() for word in file]
             
+=======
+        with open(file_path, 'r') as file:
+            for word in file:
+            word_list = word.strip()
+            print(word_list)
+>>>>>>> 4bbab40d37e81fb5f50e7b130040f6c56e833e58
         if user_string in word_list:
             print(f"The string '{user_string}' was found in the word list.")
         else:
