@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+# Script Name:                  ops401code/ops-401d1:Challenge17.py
+# Author:                       Cody Blahnik
+# Date of latest revision:      5/21/24
+# Purpose:                      Brute force tool using wordlists
+
 
 import time
 import paramiko
