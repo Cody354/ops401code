@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Script Name:                  ops-401d1:Challenge16AutomatedBruteForceWordlistAttackToolPart1.py
+# Script Name:                  ops-401d1:Challenge17.py
 # Author:                       Cody Blahnik
 # Date of latest revision:      5/20/24
 # Purpose:                      Brute force tool using wordlists
