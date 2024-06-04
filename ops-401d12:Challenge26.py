@@ -106,8 +106,8 @@ def brute_force_zip():
 def main():
     while True:
         print("\nBrute Force Wordlist Attack Tool Menu")
-        print("1 - Offensive, Dictionary Iterator")
-        print("2 - Defensive, Password Recognized")
+        print("1 - Offensive, ")
+        print("2 - Defensive, ")
         print("3 - Offensive, SSH Brute Force")
         print("4 - Offensive, ZIP Brute Force")
         print("5 - Exit")
