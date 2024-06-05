@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-# Script Name:                  Ops Challenge: Event Logging Tool Part 1 of 3
+# Script Name:                  Ops Challenge: Event Logging Tool Part 2 of 3
 # Author:                       Cody Blahnik
 # Date of latest revision:      06/3/24
-# Purpose:                      Create logs to detect Brute Force attacks
+# Purpose:                      
 
 import time  
 import getpass  
