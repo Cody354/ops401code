@@ -1,0 +1,13 @@
+2024-06-05 10:53:36,360 - __main__ - ERROR - File not found: rockyou.txt
+2024-06-05 10:54:20,761 - __main__ - WARNING - Failed: 123456
+2024-06-05 10:54:26,196 - __main__ - WARNING - Failed: 12345
+2024-06-05 10:54:28,954 - __main__ - WARNING - Failed: 123456789
+2024-06-05 10:54:31,709 - __main__ - WARNING - Failed: password
+2024-06-05 10:54:34,471 - __main__ - WARNING - Failed: iloveyou
+2024-06-05 10:54:37,221 - __main__ - WARNING - Failed: princess
+2024-06-05 10:54:39,974 - __main__ - WARNING - Failed: 1234567
+2024-06-05 10:54:42,730 - __main__ - WARNING - Failed: rockyou
+2024-06-05 10:54:45,485 - __main__ - WARNING - Failed: 12345678
+2024-06-05 10:54:48,243 - __main__ - WARNING - Failed: abc123
+2024-06-05 10:54:50,997 - __main__ - WARNING - Failed: nicole
+2024-06-05 10:54:51,002 - __main__ - ERROR - Connection error: Error reading SSH protocol banner
