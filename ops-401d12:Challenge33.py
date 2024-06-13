@@ -1,14 +1,14 @@
-
 #!/usr/bin/env python3
 
 # Script Name:                  Ops Challenge: Signature-based Malware Detection Part 2 of 3
 # Author:                       Cody Blahnik
 # Date of latest revision:      06/11/24
-# Purpose:      
+# Purpose:                      Scan files for malware using VirusTotal API
 
 import os
 import hashlib
 import logging
+import requests
 from datetime import datetime
 
 API_KEY_VIRUSTOTAL = "65ad0b914436ba7a2f05c8cb7621837c903e19b95a21a33265dfddda8453f339"
@@ -38,6 +38,7 @@ def query_virustotal(api_key, file_hash):
     if response.status_code == 200:
         return response.json()
     else:
+        logging.error(f"VirusTotal API error: {response.status_code} - {response.text}")
         return None
 
 def scan_directory(search_directory):
@@ -64,6 +65,14 @@ def scan_directory(search_directory):
                 print(f"{timestamp} | {file_path} | {file} | {file_size} bytes | MD5: {md5_hash}")
                 # Log the result
                 logging.info(f"{timestamp} | {file_path} | {file} | {file_size} bytes | MD5: {md5_hash}")
+                
+                # Query VirusTotal
+                vt_result = query_virustotal(API_KEY_VIRUSTOTAL, md5_hash)
+                if vt_result:
+                    # Handle and log the VirusTotal result
+                    vt_summary = vt_result.get('data', {}).get('attributes', {}).get('last_analysis_stats', {})
+                    logging.info(f"VirusTotal result for {file_path}: {vt_summary}")
+                    print(f"VirusTotal result for {file_path}: {vt_summary}")
     
     return results
 
