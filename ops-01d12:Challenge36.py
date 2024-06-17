@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-# Script Name:                  Uptime Sensor Tool Part 1 
+# Script Name:                  Web Application Fingerprinting
 # Author:                       Cody Blahnik
 # Date of latest revision:      4//30/2024
-# Purpose:                      uptime sensor tool that checks systems are responding
+# Purpose:                      multiple banner grabbing approaches against a single target
 
 
 import socket
